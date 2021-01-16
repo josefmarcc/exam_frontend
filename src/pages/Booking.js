@@ -12,10 +12,10 @@ export default function Booking({ isLoggedIn }) {
     value: 4042,
     label: "Apples",
   });
-  const [singleHotel, setSingleHotel] = useState({ value: 4024 });
+  const [singleHotel, setSingleHotel] = useState({});
 
   const fetchHotels = () => {
-    return fetch(SERVER_URL)
+    return fetch(SERVER_URL + "hotels")
       .then((response) => response.json())
       .then((data) => {
         setHotels(data);
@@ -23,9 +23,14 @@ export default function Booking({ isLoggedIn }) {
       });
   };
 
+  function getHotelByID(id) {
+    return fetch(SERVER_URL + id);
+  }
+
   // henter data fra API, og sætter Options.
   useEffect(() => {
     fetchHotels();
+    setSelectedOption(() => getHotelByID(4042));
   }, []);
 
   // setOptions efter hotels er renderet.
@@ -63,7 +68,7 @@ export default function Booking({ isLoggedIn }) {
           <h2 className="text-center mt-5 mb-2">Hotel info</h2>
           <div>
             <p>Her</p>
-            <p>{singleHotel.title}</p>
+            {singleHotel.title}
           </div>
           {isLoggedIn && (
             <div className="mt-5">
