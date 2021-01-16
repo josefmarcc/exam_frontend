@@ -2,13 +2,9 @@ import apiFacade from "../api/apiFacade";
 import React, { useState, useEffect } from "react";
 import SERVER_URL from "../util/Settings";
 
-export default function Jokes({ isLoggedIn }) {
+export default function Booking({ isLoggedIn }) {
   const [dataFromServer, setDataFromServer] = useState("Waiting...");
   const [dataFromServer1, setDataFromServer1] = useState("Waiting...");
-
-  // useEffect(() => {
-  //   apiFacade.getHotels().then((data) => setDataFromServer(data));
-  // }, []);
 
   const handleClick = (e) => {
     e.preventDefault();

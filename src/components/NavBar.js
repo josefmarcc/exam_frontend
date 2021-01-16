@@ -15,8 +15,8 @@ function NavBar({ loginMsg, isLoggedIn, user }) {
           </NavLink>
         </li>
         <li>
-          <NavLink activeClassName="active" to="/api-calls">
-            Api calls
+          <NavLink activeClassName="active" to="/booking">
+            Booking
           </NavLink>
         </li>
         {isLoggedIn && (

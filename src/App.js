@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import Navbar from "./components/NavBar";
 import Home from "./pages/Home";
-import ApiCalls from "./pages/ApiCalls";
+import Booking from "./pages/Booking";
 import NoMatch from "./components/NoMatch";
 import SecurePage from "./pages/SecurePage";
 import facade from "./api/userFacade";
@@ -64,8 +64,8 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route exact path="/api-calls">
-            <ApiCalls isLoggedIn={loggedIn} />
+          <Route exact path="/booking">
+            <Booking isLoggedIn={loggedIn} />
           </Route>
           <PrivateRoute path="/secure-page">
             <SecurePage />
