@@ -12,8 +12,21 @@ function getHotels() {
     });
 }
 
+function getHotelByID(id) {
+  return fetch(SERVER_URL + id)
+    .then(handleHttpErrors)
+    .catch((err) => {
+      if (err.status) {
+        err.fullError.then((e) => console.log(e.message));
+      } else {
+        console.log("Network error");
+      }
+    });
+}
+
 const apiFacade = {
   getHotels,
+  getHotelByID,
 };
 
 function makeOptions(method, body) {
