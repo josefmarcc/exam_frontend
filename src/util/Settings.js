@@ -1,3 +1,3 @@
-const SERVER_URL = "https://dachma.dk/ca3_backend";
+const SERVER_URL = "http://localhost:8080/jpareststarter/api/hotels";
 
 export default SERVER_URL;

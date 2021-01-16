@@ -1,19 +1,7 @@
 import SERVER_URL from "../util/Settings";
 
-function getJokes() {
-  return fetch(SERVER_URL + "/api/jokes")
-    .then(handleHttpErrors)
-    .catch((err) => {
-      if (err.status) {
-        err.fullError.then((e) => console.log(e.message));
-      } else {
-        console.log("Network error");
-      }
-    });
-}
-
-function getQuote() {
-  return fetch(SERVER_URL + "/api/quotes")
+function getHotels() {
+  return fetch(SERVER_URL)
     .then(handleHttpErrors)
     .catch((err) => {
       if (err.status) {
@@ -25,8 +13,7 @@ function getQuote() {
 }
 
 const apiFacade = {
-  getJokes,
-  getQuote,
+  getHotels,
 };
 
 function makeOptions(method, body) {
