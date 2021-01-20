@@ -1,9 +1,11 @@
 import apiFacade from "../api/apiFacade";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
+import { Marker } from "react-geo-maps";
 
 export default function Home() {
   const init = [{ title: "" }];
+  const initLocations = [{ lat: 28.7041, lng: 77.1025, title: "Delhi" }];
   const [hotelID, setHotelID] = useState("4042");
   const [hotelInfo, setHotelInfo] = useState(init);
   const [selectedHotel, setSelectedHotel] = useState({
@@ -18,6 +20,7 @@ export default function Home() {
     url: "",
     geo: [""],
   });
+  const [locations, setLocations] = useState(initLocations);
 
   const fetchData = () => {
     apiFacade.getHotels().then((data) => setHotelInfo(data));
@@ -40,6 +43,13 @@ export default function Home() {
 
   const onChange = (evt) => {
     setHotelID(evt.value);
+    setLocations([
+      {
+        lat: parseFloat(selectedHotel.geo.lat),
+        lng: parseFloat(selectedHotel.geo.lon),
+        title: selectedHotel.title,
+      },
+    ]);
     console.log(selectedHotel);
     console.log(hotelID);
   };
@@ -48,6 +58,7 @@ export default function Home() {
     fetchHotelByID(hotelID);
   }, [hotelID]);
 
+  // TODO fix Marker til at opdatere når man ændre location.
   return (
     <div className="container-fluid padding">
       <div className="row">
@@ -79,6 +90,18 @@ export default function Home() {
               </tr>
             </tbody>
           </table>
+          <div>{selectedHotel.content}</div>
+
+          <div class="mt-5">
+            <Marker
+              apikey="AIzaSyCh68T1_ltWVPCakvrpPIth7bhVE-nNW3Y"
+              zoom={2}
+              center={{ lat: -28.024, lng: 140.887 }}
+              locations={locations}
+              height={350}
+              width={750}
+            />
+          </div>
         </div>
         <div className="col-3"></div>
       </div>
