@@ -1,7 +1,7 @@
 import SERVER_URL from "../util/Settings";
 
 function getHotels() {
-  return fetch(SERVER_URL)
+  return fetch(SERVER_URL + "hotels")
     .then(handleHttpErrors)
     .catch((err) => {
       if (err.status) {
@@ -13,7 +13,7 @@ function getHotels() {
 }
 
 function getHotelByID(id) {
-  return fetch(SERVER_URL + id)
+  return fetch(SERVER_URL + "hotels/" + id)
     .then(handleHttpErrors)
     .catch((err) => {
       if (err.status) {

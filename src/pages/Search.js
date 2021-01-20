@@ -2,6 +2,7 @@ import apiFacade from "../api/apiFacade";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { Marker } from "react-geo-maps";
+import Calender from "../components/Calender";
 
 export default function Home() {
   const init = [{ title: "" }];
@@ -102,6 +103,7 @@ export default function Home() {
               width={750}
             />
           </div>
+          <Calender />
         </div>
         <div className="col-3"></div>
       </div>
