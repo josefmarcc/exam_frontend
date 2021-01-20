@@ -12,7 +12,7 @@ export default function Booking({ isLoggedIn }) {
     value: 4042,
     label: "Apples",
   });
-  const [singleHotel, setSingleHotel] = useState({ value: 4024 });
+  const [singleHotel, setSingleHotel] = useState({ value: 4042 });
 
   const fetchHotels = () => {
     return fetch(SERVER_URL)

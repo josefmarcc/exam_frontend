@@ -15,6 +15,7 @@ import SecurePage from "./pages/SecurePage";
 import facade from "./api/userFacade";
 import { LogIn, LoggedIn } from "./pages/Login";
 import jwt_decode from "jwt-decode";
+import Search from "./pages/Search";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -65,7 +66,7 @@ function App() {
             <Home />
           </Route>
           <Route exact path="/booking">
-            <Booking isLoggedIn={loggedIn} />
+            <Search isLoggedIn={loggedIn} />
           </Route>
           <PrivateRoute path="/secure-page">
             <SecurePage />
