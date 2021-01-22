@@ -66,7 +66,7 @@ function App() {
             <Home />
           </Route>
           <Route exact path="/booking">
-            <Search isLoggedIn={loggedIn} />
+            <Search isLoggedIn={loggedIn} user={user} />
           </Route>
           <PrivateRoute path="/secure-page">
             <SecurePage />

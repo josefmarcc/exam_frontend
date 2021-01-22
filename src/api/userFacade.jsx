@@ -46,7 +46,7 @@ function userFacade() {
 
   const fetchData = () => {
     const options = makeOptions("GET", true); //True add's the token
-    return fetch(SERVER_URL + "user", options).then(handleHttpErrors);
+    return fetch(SERVER_URL + "info/user", options).then(handleHttpErrors);
   };
 
   const makeOptions = (method, addToken, body) => {

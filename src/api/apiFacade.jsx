@@ -24,9 +24,23 @@ function getHotelByID(id) {
     });
 }
 
+function addBooking(booking) {
+  const options = makeOptions("POST", booking);
+  return fetch(SERVER_URL + "hotels", options)
+    .then(handleHttpErrors)
+    .catch((err) => {
+      if (err.status) {
+        err.fullError.then((e) => console.log(e.message));
+      } else {
+        console.log("Network error");
+      }
+    });
+}
+
 const apiFacade = {
   getHotels,
   getHotelByID,
+  addBooking,
 };
 
 function makeOptions(method, body) {

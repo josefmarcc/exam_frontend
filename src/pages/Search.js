@@ -2,9 +2,12 @@ import apiFacade from "../api/apiFacade";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { Marker } from "react-geo-maps";
-import Calender from "../components/Calender";
+import BookingModal from "../components/BookingModal";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import CreateModal from "../components/RegisterUser";
 
-export default function Home() {
+export default function Home({ isLoggedIn, user }) {
   // init data for hotel
   const init = [{ title: "" }];
 
@@ -34,9 +37,32 @@ export default function Home() {
   // locaitons on map for hotels
   const [locations, setLocations] = useState(initLocations);
 
+  // DatePicker state and onChangeHandler.
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+  const onChangeDatePicker = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
+
+  const [daysBooking, setDaysBooking] = useState(0);
+
   const fetchData = () => {
     apiFacade.getHotels().then((data) => setHotelInfo(data));
   };
+
+  // useEffect to only render when endDate is changed.
+  useEffect(() => {
+    if (endDate != null && startDate != null) {
+      // To calculate the time difference of two dates
+      let Difference_In_Time = endDate.getTime() - startDate.getTime();
+      // To calculate the no. of days between two dates
+      let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+      setDaysBooking(Difference_In_Days);
+      console.log(Difference_In_Days);
+    }
+  }, [endDate]);
 
   useEffect(() => {
     fetchData();
@@ -87,7 +113,7 @@ export default function Home() {
           <table className="table">
             <thead>
               <tr>
-                <th scope="col">Title</th>
+                <th scope="col">Hotel</th>
                 <th scope="col">Address</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Email </th>
@@ -95,7 +121,7 @@ export default function Home() {
             </thead>
             <tbody>
               <tr key={selectedHotel.id}>
-                <td>{selectedHotel.title}</td>
+                <td>{selectedHotel.name}</td>
                 <td>{selectedHotel.address}</td>
                 <td>{selectedHotel.phone}</td>
                 <td>{selectedHotel.email}</td>
@@ -103,7 +129,30 @@ export default function Home() {
             </tbody>
           </table>
           <div>{selectedHotel.content}</div>
-
+          <div class="mt-3">
+            <h3>Book now!</h3>
+            <DatePicker
+              selected={startDate}
+              onChange={onChangeDatePicker}
+              startDate={startDate}
+              endDate={endDate}
+              selectsRange
+              inline
+            />
+            {isLoggedIn ? (
+              <BookingModal
+                selectedHotel={selectedHotel}
+                startDate={startDate}
+                daysBooking={daysBooking}
+                user={user}
+              />
+            ) : (
+              <div>
+                <p>Please register to start your booking</p>
+                <CreateModal />
+              </div>
+            )}
+          </div>
           <div class="mt-5">
             <Marker
               apikey="AIzaSyCh68T1_ltWVPCakvrpPIth7bhVE-nNW3Y"
@@ -114,7 +163,6 @@ export default function Home() {
               width={750}
             />
           </div>
-          <Calender />
         </div>
         <div className="col-3"></div>
       </div>
