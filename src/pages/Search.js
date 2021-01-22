@@ -5,10 +5,19 @@ import { Marker } from "react-geo-maps";
 import Calender from "../components/Calender";
 
 export default function Home() {
+  // init data for hotel
   const init = [{ title: "" }];
+
+  // Init locations for the map
   const initLocations = [{ lat: 28.7041, lng: 77.1025, title: "Delhi" }];
+
+  // Set hotel ID to fetch the specific hotel
   const [hotelID, setHotelID] = useState("4042");
+
+  // hotelInfo for looping though in search
   const [hotelInfo, setHotelInfo] = useState(init);
+
+  // selected hotel in the searchbar
   const [selectedHotel, setSelectedHotel] = useState({
     id: "",
     title: "",
@@ -21,6 +30,8 @@ export default function Home() {
     url: "",
     geo: [""],
   });
+
+  // locaitons on map for hotels
   const [locations, setLocations] = useState(initLocations);
 
   const fetchData = () => {
