@@ -38,12 +38,14 @@ function App() {
     }
   }, [loggedIn]);
 
+  // PrivateRoute for users logged in to see bookings.
   function PrivateRoute({ children, ...rest }) {
     return (
       <Route
         {...rest}
         render={() => {
-          return loggedIn === true && user.roles === "admin,user" ? (
+          return (loggedIn === true && user.roles === "admin,user") ||
+            user.roles === "user" ? (
             children
           ) : (
             <Redirect to="/login-out" />
@@ -69,7 +71,7 @@ function App() {
             <Search isLoggedIn={loggedIn} user={user} />
           </Route>
           <PrivateRoute path="/secure-page">
-            <SecurePage />
+            <SecurePage user={user} />
           </PrivateRoute>
           <Route path="/login-out">
             {!loggedIn ? (
