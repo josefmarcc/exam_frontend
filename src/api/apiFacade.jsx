@@ -24,8 +24,9 @@ function getHotelByID(id) {
     });
 }
 
+// true med i header så den tager token med.
 function addBooking(booking) {
-  const options = makeOptions("POST", booking);
+  const options = makeOptions("POST", true, booking);
   return fetch(SERVER_URL + "booking", options)
     .then(handleHttpErrors)
     .catch((err) => {
@@ -49,14 +50,24 @@ function getUserBookings(userName) {
     });
 }
 
+const getToken = () => {
+  return localStorage.getItem("jwtToken");
+};
+const loggedIn = () => {
+  const loggedIn = getToken() != null;
+  return loggedIn;
+};
+
 const apiFacade = {
   getHotels,
   getHotelByID,
   addBooking,
   getUserBookings,
+  getToken,
+  loggedIn,
 };
 
-function makeOptions(method, body) {
+const makeOptions = (method, addToken, body) => {
   var opts = {
     method: method,
     headers: {
@@ -64,12 +75,14 @@ function makeOptions(method, body) {
       Accept: "application/json",
     },
   };
+  if (addToken && loggedIn()) {
+    opts.headers["x-access-token"] = getToken();
+  }
   if (body) {
     opts.body = JSON.stringify(body);
   }
   return opts;
-}
-
+};
 function handleHttpErrors(res) {
   if (!res.ok) {
     return Promise.reject({ status: res.status, fullError: res.json() });
