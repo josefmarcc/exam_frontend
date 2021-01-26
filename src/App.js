@@ -16,6 +16,7 @@ import facade from "./api/userFacade";
 import { LogIn, LoggedIn } from "./pages/Login";
 import jwt_decode from "jwt-decode";
 import Search from "./pages/Search";
+import Admin from "./pages/Admin";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -55,6 +56,23 @@ function App() {
     );
   }
 
+  // PrivateRoute for admins logged in to see admin page.
+  function PrivateRouteAdmin({ children, ...rest }) {
+    return (
+      <Route
+        {...rest}
+        render={() => {
+          return (loggedIn === true && user.roles === "admin") ||
+            user.roles === "admin" ? (
+            children
+          ) : (
+            <Redirect to="/login-out" />
+          );
+        }}
+      />
+    );
+  }
+
   return (
     <div>
       <Router>
@@ -73,6 +91,9 @@ function App() {
           <PrivateRoute path="/secure-page">
             <SecurePage user={user} />
           </PrivateRoute>
+          <PrivateRouteAdmin path="/admin">
+            <Admin />
+          </PrivateRouteAdmin>
           <Route path="/login-out">
             {!loggedIn ? (
               <LogIn login={login} />

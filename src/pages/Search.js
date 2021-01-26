@@ -129,7 +129,7 @@ export default function Home({ isLoggedIn, user }) {
             </tbody>
           </table>
           <div>{selectedHotel.content}</div>
-          <div class="mt-3">
+          <div className="mt-3">
             <h3>Book now!</h3>
             <DatePicker
               selected={startDate}
@@ -153,7 +153,7 @@ export default function Home({ isLoggedIn, user }) {
               </div>
             )}
           </div>
-          <div class="mt-5">
+          <div className="mt-5">
             <Marker
               apikey="AIzaSyCh68T1_ltWVPCakvrpPIth7bhVE-nNW3Y"
               zoom={2}

@@ -26,7 +26,7 @@ export default function SecurePage({ user }) {
         <div className="col-3"></div>
         <div className="col-6 text-center">
           <h2 className="mt-5">Secure page</h2>
-          <h4>Welcome {bookedHotel.userName}, Here is your booking history</h4>
+          <h4>Welcome {user.username}, Here is your booking history</h4>
           <table className="table">
             <thead>
               <tr>
@@ -37,12 +37,18 @@ export default function SecurePage({ user }) {
               </tr>
             </thead>
             <tbody>
-              <tr key={bookedHotel.userName}>
-                <td>{bookedHotel.hotel}</td>
-                <td>{bookedHotel.days}</td>
-                <td>{bookedHotel.price}</td>
-                <td>{bookedHotel.startDate}</td>
-              </tr>
+              {bookedHotel && bookedHotel.length > 0 ? (
+                bookedHotel.map((m) => (
+                  <tr key={m.hotel}>
+                    <td>{m.hotel}</td>
+                    <td>{m.days}</td>
+                    <td>{m.price}</td>
+                    <td>{m.startDate}</td>
+                  </tr>
+                ))
+              ) : (
+                <p>No user bookings</p>
+              )}
             </tbody>
           </table>
           <div className="col-3"></div>

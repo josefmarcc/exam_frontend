@@ -44,6 +44,11 @@ function userFacade() {
     return fetch(SERVER_URL + "info", options).then(handleHttpErrors);
   }
 
+  const fetchUserList = () => {
+    const options = makeOptions("GET");
+    return fetch(SERVER_URL + "info/all", options).then(handleHttpErrors);
+  };
+
   const fetchData = () => {
     const options = makeOptions("GET", true); //True add's the token
     return fetch(SERVER_URL + "info/user", options).then(handleHttpErrors);
@@ -74,6 +79,7 @@ function userFacade() {
     logout,
     fetchData,
     addUser,
+    fetchUserList,
   };
 }
 const facade = userFacade();
